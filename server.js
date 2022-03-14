@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const inventoryRoutes = require("./routes/inventoryRoutes");
-const warehouseRoutes = require("./routes/inventoryRoutes");
+const warehouseRoutes = require("./routes/warehouseRoutes");
 const PORT = process.env.PORT;
 
 
