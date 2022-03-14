@@ -15,7 +15,6 @@ app.use((req, res, next) => {
   next();
 })
 app.use(express.json()); // add req.body
-app.use(express.static('./public')); // add public folder for serving images
 app.use(cors()); // allow cross-origin resource sharing
 
 
