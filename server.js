@@ -23,7 +23,8 @@ app.use(cors()); // allow cross-origin resource sharing
 //
 // Routing
 //
-
+app.use("/warehouse", warehouseRoutes);
+app.use("/inventory", inventoryRoutes);
 
 
 
