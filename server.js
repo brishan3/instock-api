@@ -4,7 +4,7 @@ const app = express();
 const cors = require('cors');
 const inventoryRoutes = require("./routes/inventoryRoutes");
 const warehouseRoutes = require("./routes/warehouseRoutes");
-const PORT = 5050;
+const PORT = process.env.PORT;
 
 
 //
