@@ -10,7 +10,11 @@ const { v4: uuidv4 } = require("uuid");
 router.get("/", (req, res) => {
   fs.readFile("./data/warehouses.json", "utf-8", (err, data) => {
     const warehousesData = JSON.parse(data);
-    res.json(warehousesData);
+    if (err) {
+      res.status(400).send("Error reading file");
+    } else {
+      res.json(warehousesData);
+    }
   });
 });
 
