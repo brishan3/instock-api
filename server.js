@@ -23,7 +23,7 @@ app.use(express.static('public')); // adds public folder for serving images
 //
 // Routing
 //
-app.use("/warehouse", warehouseRoutes);
+app.use("/warehouses", warehouseRoutes);
 app.use("/inventory", inventoryRoutes);
 
 
