@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
 
   const newWarehouse = {
     id: uuidv4(),
-    name: req.body.name,
+    name: req.body.whname,
     address: req.body.address,
     city: req.body.city,
     country: req.body.country,
@@ -29,11 +29,11 @@ router.post("/", (req, res) => {
       email: req.body.email,
     },
   };
-  fs.readFile("./data/warehouse.json", "utf8", (err, data) => {
+  fs.readFile("./data/warehouses.json", "utf8", (err, data) => {
     const warehousesData = JSON.parse(data);
     warehousesData.push(newWarehouse);
     fs.writeFile(
-      "./data/warehouse.json",
+      "./data/warehouses.json",
       JSON.stringify(warehousesData),
       () => {
         res.json(warehousesData);
