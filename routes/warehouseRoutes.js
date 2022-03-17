@@ -18,14 +18,14 @@ router.get("/", (req, res) => {
 router.get('/:id', (req, res) => {
   fs.readFile('./data/warehouses.json', 'utf-8', (err,data) => {
     if (err) {
-      console.log(err)
+      // console.log(err)
       res.status(501).send('Error reading data file.')
     } else {
       const warehousesData = JSON.parse(data);
       const reqWarehouse = warehousesData.find( (warehouse) => {
         return warehouse.id === req.params.id
       })
-      console.log(reqWarehouse);
+      // console.log(reqWarehouse);
       if (reqWarehouse) {
         res.status(201).json(reqWarehouse);
       } else {
