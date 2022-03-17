@@ -68,4 +68,36 @@ router.post("/", (req, res) => {
   });
 });
 
+router.put("/:id", (req, res) => {
+  fs.readFile("./data/warehouses.json", "utf8", (err, data) => {
+    if (err) {
+      res.status(400).send("Internal Server Error");
+    } else {
+      const whData = JSON.parse(data);
+      const id = whData.findIndex((warehouse) => {
+        return warehouse.id === req.params.id;
+      });
+      if (id >= 0) {
+        whData[id]["name"] = req.body.whname;
+        whData[id]["address"] = req.body.address;
+        whData[id]["city"] = req.body.city;
+        whData[id]["country"] = req.body.country;
+        whData[id]["contact"]["name"] = req.body.country;
+        whData[id]["contact"]["position"] = req.body.position;
+        whData[id]["contact"]["phone"] = req.body.phone;
+        whData[id]["contact"]["email"] = req.body.email;
+        fs.writeFile(
+          "./data/warehouses.json",
+          JSON.stringify(whData),
+          () => {
+            res.send("Warehouse has been updated");
+          }
+        );
+      } else {
+        res.status(404).send("This warehouse does not exist in the database")
+      }
+
+    }
+  });
+});
 module.exports = router;
