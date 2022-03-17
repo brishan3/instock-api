@@ -15,30 +15,29 @@ router.get("/", (req, res) => {
 });
 
 // Returns data for a specific warehouse by a given ID
-router.get('/:id', (req, res) => {
-  fs.readFile('./data/warehouses.json', 'utf-8', (err,data) => {
+router.get("/:id", (req, res) => {
+  fs.readFile("./data/warehouses.json", "utf-8", (err, data) => {
     if (err) {
-      console.log(err)
-      res.status(501).send('Error reading data file.')
+      console.log(err);
+      res.status(501).send("Error reading data file.");
     } else {
       const warehousesData = JSON.parse(data);
-      const reqWarehouse = warehousesData.find( (warehouse) => {
-        return warehouse.id === req.params.id
-      })
+      const reqWarehouse = warehousesData.find((warehouse) => {
+        return warehouse.id === req.params.id;
+      });
       console.log(reqWarehouse);
       if (reqWarehouse) {
         res.status(201).json(reqWarehouse);
       } else {
         res.status(404).json({
-          message: 'No warehouse with that id exists',
-        })
+          message: "No warehouse with that id exists",
+        });
       }
     }
   });
-})
+});
 
 router.post("/", (req, res) => {
-
   const newWarehouse = {
     id: uuidv4(),
     name: req.body.whname,
@@ -53,15 +52,19 @@ router.post("/", (req, res) => {
     },
   };
   fs.readFile("./data/warehouses.json", "utf8", (err, data) => {
-    const warehousesData = JSON.parse(data);
-    warehousesData.push(newWarehouse);
-    fs.writeFile(
-      "./data/warehouses.json",
-      JSON.stringify(warehousesData),
-      () => {
-        res.json(warehousesData);
-      }
-    );
+    if (err) {
+      res.status(400).send("Internal server error");
+    } else {
+      const warehousesData = JSON.parse(data);
+      warehousesData.push(newWarehouse);
+      fs.writeFile(
+        "./data/warehouses.json",
+        JSON.stringify(warehousesData),
+        () => {
+          res.send("Warehouse has been added");
+        }
+      );
+    }
   });
 });
 
