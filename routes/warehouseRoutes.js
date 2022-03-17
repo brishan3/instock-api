@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
       "./data/warehouses.json",
       JSON.stringify(warehousesData),
       () => {
-        res.json(warehousesData);
+        res.send("Warehouse has been added");
       }
     );
   });
