@@ -1,3 +1,4 @@
+const { json } = require("express");
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
@@ -14,6 +15,22 @@ router.get("/", (req, res) => {
     }
   });
 });
+
+//Route to GET single inventory by ID
+router.get("/:id", (req, res) => {
+  fs.readFile("./data/inventories.json", "utf8", (err, data) => {
+    const inventoriesData = JSON.parse(data);
+    const foundInventory = inventoriesData.find(
+      (inventory) => inventory.id === req.params.id
+    );
+    if (foundInventory) {
+      res.json(foundInventory);
+    } else {
+      console.log(err);
+      res.status(400).send("No inventory found with this id");
+    }
+  })
+})
 
 // Returns a collection of inventory items associated with a warehouse ID
 router.get("/warehouse/:id", (req, res) => {
