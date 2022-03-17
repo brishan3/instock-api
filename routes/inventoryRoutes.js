@@ -29,8 +29,8 @@ router.get("/:id", (req, res) => {
       console.log(err);
       res.status(400).send("No inventory found with this id");
     }
-  })
-})
+  });
+});
 
 // Returns a collection of inventory items associated with a warehouse ID
 router.get("/warehouse/:id", (req, res) => {
@@ -53,6 +53,7 @@ router.get("/warehouse/:id", (req, res) => {
   });
 });
 
+// Add a new inventory item
 router.post("/", (req, res) => {
   const newInventory = {
     id: req.body.id,
@@ -77,6 +78,38 @@ router.post("/", (req, res) => {
           res.json(inventoriesData);
         }
       );
+    }
+  });
+});
+
+//Edit an inventory item
+
+router.put("/edit/:id", (req, res) => {
+  fs.readFile("./data/inventories.json", "utf8", (err, data) => {
+    if (err) {
+      res.status(400).send("Internal Server Error");
+    } else {
+      const inventoryData = JSON.parse(data);
+      const id = inventoryData.findIndex((inventory) => {
+        return inventory.id === req.params.id;
+      });
+      if (id >= 0) {
+        inventoryData[id]["warehouseName"] = req.body.warehouseName;
+        inventoryData[id]["itemName"] = req.body.itemName;
+        inventoryData[id]["description"] = req.body.description;
+        inventoryData[id]["category"] = req.body.category;
+        inventoryData[id]["status"] = req.body.status;
+        inventoryData[id]["quantity"] = req.body.quantity;
+        fs.writeFile(
+          "./data/inventories.json",
+          JSON.stringify(inventoryData),
+          () => {
+            res.send("Inventory has been updated");
+          }
+        );
+      } else {
+        res.status(404).send("This inventory does not exist in the database");
+      }
     }
   });
 });
