@@ -75,7 +75,7 @@ router.post("/", (req, res) => {
         "./data/inventories.json",
         JSON.stringify(inventoriesData),
         () => {
-          res.json(inventoriesData);
+          res.status(201).json(inventoriesData);
         }
       );
     }
@@ -104,7 +104,7 @@ router.put("/edit/:id", (req, res) => {
           "./data/inventories.json",
           JSON.stringify(inventoryData),
           () => {
-            res.send("Inventory has been updated");
+            res.status(205).send("Inventory has been updated");
           }
         );
       } else {
