@@ -130,6 +130,10 @@ router.delete('/:id', (req,res) => {
     }
   });
 });
+<<<<<<< HEAD
+
+=======
+>>>>>>> develop
 // router.delete('/:id', (req,res) => {
 //   fs.readFile("./data/inventories.json", "utf8", (err, data) => {
 //     if (err) {
