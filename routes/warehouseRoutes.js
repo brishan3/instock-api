@@ -56,7 +56,7 @@ router.post("/", (req, res) => {
       res.status(400).send("Internal server error");
     } else {
       const warehousesData = JSON.parse(data);
-      warehousesData.push(newWarehouse);
+      warehousesData.unshift(newWarehouse);
       fs.writeFile(
         "./data/warehouses.json",
         JSON.stringify(warehousesData),
