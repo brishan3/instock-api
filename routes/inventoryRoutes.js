@@ -83,7 +83,6 @@ router.post("/", (req, res) => {
 });
 
 //Edit an inventory item
-
 router.put("/edit/:id", (req, res) => {
   fs.readFile("./data/inventories.json", "utf8", (err, data) => {
     if (err) {
