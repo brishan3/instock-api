@@ -140,7 +140,7 @@ router.delete("/:id", (req,res)=>{
         "./data/warehouses.json",
         JSON.stringify(updatedWarehouseData),
         () => {
-          res.json(updatedWarehouseData).send("Warehouse deleted!");
+          res.json(updatedWarehouseData);
         }
       );// add another else to have a 404 sent like in the put req?
     }
