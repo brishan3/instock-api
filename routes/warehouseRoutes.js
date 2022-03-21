@@ -131,18 +131,18 @@ router.delete("/:id", (req,res)=>{
   fs.readFile('./data/warehouses.json', 'utf-8', (err, data) => {
     if (err) {
       console.log(err)
-      res.status(501).send(`Error deleting data file.`)
+      res.status(400).send(`Internal server Error`)
     } else {
       const warehousesData = JSON.parse(data);
-      const updatedWarehouseData = warehousesData.filter((warehouse) =>
-        warehouse.id != req.params.id);
+      const updatedWarehouseData = warehousesData.filter((warehouse) => {
+        return warehouse.id != req.params.id});
       fs.writeFile(
         "./data/warehouses.json",
         JSON.stringify(updatedWarehouseData),
         () => {
           res.json(updatedWarehouseData);
         }
-      );// add another else to have a 404 sent like in the put req?
+      );
     }
   });
 });

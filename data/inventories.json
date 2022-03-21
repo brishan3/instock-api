@@ -698,5 +698,25 @@
     "category": "Health",
     "status": "Out of Stock",
     "quantity": 0
+  },
+  {
+    "id": "1",
+    "warehouseID": "testID",
+    "warehouseName": "testName",
+    "itemName": "testItem",
+    "description": "testDes",
+    "category": "testCategory",
+    "status": "instock",
+    "quantity": "10"
+  },
+  {
+    "id": "ea412917-b04a-4059-903c-b6643cd706a7",
+    "warehouseID": "bb1491eb-30e6-4728-a5fa-72f89feaf622",
+    "warehouseName": "Miami",
+    "itemName": "test Item",
+    "description": "testing description",
+    "category": "Apparel",
+    "status": "instock",
+    "quantity": "20"
   }
 ]
