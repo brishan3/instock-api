@@ -133,21 +133,4 @@ router.delete("/:id", (req, res) => {
     }
   });
 });
-// router.delete('/:id', (req,res) => {
-//   fs.readFile("./data/inventories.json", "utf8", (err, data) => {
-//     if (err) {
-//       res.status(400).send("Internal server Error");
-//     } else {
-//       const inventoryData = JSON.parse(data);
-//       const index = inventoryData.findIndex((inventory) => {
-//         return inventory.id === req.params.id;
-//       });
-//       inventoryData.splice(index, 1)
-//       fs.writeFile("./data/inventories.json", JSON.stringify(inventoryData), ()=>{
-//         res.json()
-//       })
-
-//     }
-//   });
-// });
 module.exports = router;
