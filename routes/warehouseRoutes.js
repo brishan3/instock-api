@@ -119,7 +119,10 @@ router.delete("/:id", (req,res)=>{
         return warehouse.id !== req.params.id});
       fs.writeFile(
         "./data/warehouses.json",
-        JSON.stringify(updatedWarehouseData)
+        JSON.stringify(updatedWarehouseData), 
+        () => {
+          
+        }
       );
 
       fs.readFile("./data/inventories.json", "utf8", (_err, _data) => {
