@@ -60,7 +60,7 @@ router.post("/", (req, res) => {
       res.status(400).send("Internal server error");
     } else {
       const warehousesData = JSON.parse(data);
-      warehousesData.push(newWarehouse);
+      warehousesData.unshift(newWarehouse);
       fs.writeFile(
         "./data/warehouses.json",
         JSON.stringify(warehousesData),
@@ -86,7 +86,7 @@ router.put("/:id", (req, res) => {
         whData[id]["address"] = req.body.address;
         whData[id]["city"] = req.body.city;
         whData[id]["country"] = req.body.country;
-        whData[id]["contact"]["name"] = req.body.country;
+        whData[id]["contact"]["name"] = req.body.name;
         whData[id]["contact"]["position"] = req.body.position;
         whData[id]["contact"]["phone"] = req.body.phone;
         whData[id]["contact"]["email"] = req.body.email;

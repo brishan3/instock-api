@@ -114,4 +114,21 @@ router.put("/edit/:id", (req, res) => {
   });
 });
 
+router.delete('/:id', (req,res) => {
+  fs.readFile("./data/inventories.json", "utf8", (err, data) => {
+    if (err) {
+      res.status(400).send("Internal server Error");
+    } else {
+      const inventoryData = JSON.parse(data);
+      const updatedData = inventoryData.filter((inventory) => {
+        return inventory.id != req.params.id
+      });
+      fs.writeFile("./data/inventories.json", JSON.stringify(updatedData), ()=>{
+        res.json(updatedData)
+      })
+
+    }
+  });
+});
+
 module.exports = router;
