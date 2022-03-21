@@ -75,7 +75,7 @@ router.post("/", (req, res) => {
         "./data/inventories.json",
         JSON.stringify(inventoriesData),
         () => {
-          res.status(201).json(inventoriesData);
+          res.json("Inventory has been added");
         }
       );
     }
@@ -104,7 +104,7 @@ router.put("/edit/:id", (req, res) => {
           "./data/inventories.json",
           JSON.stringify(inventoryData),
           () => {
-            res.status(205).send("Inventory has been updated");
+            res.send("Inventory has been updated");
           }
         );
       } else {
@@ -114,26 +114,25 @@ router.put("/edit/:id", (req, res) => {
   });
 });
 
-router.delete('/:id', (req,res) => {
+router.delete("/:id", (req, res) => {
   fs.readFile("./data/inventories.json", "utf8", (err, data) => {
     if (err) {
       res.status(400).send("Internal server Error");
     } else {
       const inventoryData = JSON.parse(data);
       const updatedData = inventoryData.filter((inventory) => {
-        return inventory.id != req.params.id
+        return inventory.id != req.params.id;
       });
-      fs.writeFile("./data/inventories.json", JSON.stringify(updatedData), ()=>{
-        res.json(updatedData)
-      })
-
+      fs.writeFile(
+        "./data/inventories.json",
+        JSON.stringify(updatedData),
+        () => {
+          res.json(updatedData);
+        }
+      );
     }
   });
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
 // router.delete('/:id', (req,res) => {
 //   fs.readFile("./data/inventories.json", "utf8", (err, data) => {
 //     if (err) {
