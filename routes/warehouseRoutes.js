@@ -10,7 +10,11 @@ const { v4: uuidv4 } = require("uuid");
 router.get("/", (req, res) => {
   fs.readFile("./data/warehouses.json", "utf-8", (err, data) => {
     const warehousesData = JSON.parse(data);
-    res.json(warehousesData);
+    if (err) {
+      res.status(400).send("Error reading file");
+    } else {
+      res.json(warehousesData);
+    }
   });
 });
 
@@ -100,4 +104,48 @@ router.put("/:id", (req, res) => {
     }
   });
 });
-module.exports = router;
+
+// router.delete("/:id", (req,res)=>{
+//   fs.readFile('./data/warehouses.json', 'utf-8', (err, data) => {
+//     if (err) {
+//       console.log(err)
+//       res.status(501).send(`Error deleting data file.`)
+//     } else {
+//       const warehousesData = JSON.parse(data);
+//       const id = warehousesData.findIndex((warehouse) => {
+//         return warehouse.id === req.params.id;
+//       });
+//     if (id) {
+//       fs.writeFile(
+//         "./data/warehouses.json",
+//         JSON.stringify(warehousesData), 
+//         () => {
+//           res.send("Warehouse deleted");
+//         }
+//       )
+//     }
+
+// read the json data, filter out the id that matches the id of the requested warehouse that the user wishes to delete. 
+// then write the new file with the updated data 
+router.delete("/:id", (req,res)=>{
+  fs.readFile('./data/warehouses.json', 'utf-8', (err, data) => {
+    if (err) {
+      console.log(err)
+      res.status(400).send(`Internal server Error`)
+    } else {
+      const warehousesData = JSON.parse(data);
+      const updatedWarehouseData = warehousesData.filter((warehouse) => {
+        return warehouse.id != req.params.id});
+      fs.writeFile(
+        "./data/warehouses.json",
+        JSON.stringify(updatedWarehouseData),
+        () => {
+          res.json(updatedWarehouseData);
+        }
+      );
+    }
+  });
+});
+
+
+module.exports = router
