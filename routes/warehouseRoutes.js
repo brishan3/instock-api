@@ -105,28 +105,9 @@ router.put("/:id", (req, res) => {
   });
 });
 
-// router.delete("/:id", (req,res)=>{
-//   fs.readFile('./data/warehouses.json', 'utf-8', (err, data) => {
-//     if (err) {
-//       console.log(err)
-//       res.status(501).send(`Error deleting data file.`)
-//     } else {
-//       const warehousesData = JSON.parse(data);
-//       const id = warehousesData.findIndex((warehouse) => {
-//         return warehouse.id === req.params.id;
-//       });
-//     if (id) {
-//       fs.writeFile(
-//         "./data/warehouses.json",
-//         JSON.stringify(warehousesData), 
-//         () => {
-//           res.send("Warehouse deleted");
-//         }
-//       )
-//     }
-
-// read the json data, filter out the id that matches the id of the requested warehouse that the user wishes to delete. 
-// then write the new file with the updated data 
+// Read the json data, filter out the id that matches the id of the requested warehouse that the user wishes to delete. 
+// then write the new file with the updated data, making sure to filter any inventory
+// items with that particular deleted warehouse's id and write those changes back into data
 router.delete("/:id", (req,res)=>{
   fs.readFile('./data/warehouses.json', 'utf-8', (err, data) => {
     if (err) {
@@ -135,14 +116,29 @@ router.delete("/:id", (req,res)=>{
     } else {
       const warehousesData = JSON.parse(data);
       const updatedWarehouseData = warehousesData.filter((warehouse) => {
-        return warehouse.id != req.params.id});
+        return warehouse.id !== req.params.id});
       fs.writeFile(
         "./data/warehouses.json",
-        JSON.stringify(updatedWarehouseData),
-        () => {
-          res.json(updatedWarehouseData);
-        }
+        JSON.stringify(updatedWarehouseData)
       );
+
+      fs.readFile("./data/inventories.json", "utf8", (_err, _data) => {
+        if (_err) {
+          res.status(500).send("Internal server Error");
+        } else {
+          const inventoryData = JSON.parse(_data);
+          const updatedInventoryData = inventoryData.filter((inventory) => {
+            return inventory.warehouseID !== req.params.id;
+          });
+          fs.writeFile(
+            "./data/inventories.json",
+            JSON.stringify(updatedInventoryData),
+            () => {
+              res.json(updatedWarehouseData);
+            }
+          );
+        }
+      });
     }
   });
 });
