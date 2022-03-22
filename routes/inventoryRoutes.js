@@ -1,8 +1,6 @@
-const { json } = require("express");
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
-const { v4: uuidv4 } = require("uuid");
 
 //Route to GET collection of inventory as array of object
 router.get("/", (req, res) => {

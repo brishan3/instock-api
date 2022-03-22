@@ -29,7 +29,7 @@ router.get("/:id", (req, res) => {
       const reqWarehouse = warehousesData.find((warehouse) => {
         return warehouse.id === req.params.id;
       });
-      console.log(reqWarehouse);
+      // console.log(reqWarehouse);
       if (reqWarehouse) {
         res.status(201).json(reqWarehouse);
       } else {
