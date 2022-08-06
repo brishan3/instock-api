@@ -41,7 +41,7 @@ Add the following variables in .env file for both
 
 Client side: 
 
-REACT_APP_API_URL=https://instock-app-server.herokuapp.com/
+REACT_APP_API_URL=https://localhost:8080
   
 Server side:
 
