@@ -57,7 +57,7 @@ Install server dependencies
 ##### `$ npm install`
 
 Start the server
-##### `$ npm start`
+##### `$ npm run dev`
 
 Clone the server repository
 ##### `$ git clone https://github.com/brishan3/instock.git`
